@@ -250,7 +250,7 @@ namespace Nop.Services.ExportImport
 
             foreach (var product in productPictureMetadata)
             {
-                foreach (var picturePath in new[] { product.Picture1Path, product.Picture2Path, product.Picture3Path })
+                foreach (var picturePath in new[] { product.Picture1Path, product.Picture2Path, product.Picture3Path, product.Picture4Path, product.Picture5Path, product.Picture6Path })
                 {
                     if (String.IsNullOrEmpty(picturePath))
                         continue;
@@ -1063,6 +1063,9 @@ namespace Nop.Services.ExportImport
                     var picture1 = manager.GetProperty("Picture1").Return(p => p.StringValue, String.Empty);
                     var picture2 = manager.GetProperty("Picture2").Return(p => p.StringValue, String.Empty);
                     var picture3 = manager.GetProperty("Picture3").Return(p => p.StringValue, String.Empty);
+                    var picture4 = manager.GetProperty("Picture4").Return(p => p.StringValue, String.Empty);
+                    var picture5 = manager.GetProperty("Picture5").Return(p => p.StringValue, String.Empty);
+                    var picture6 = manager.GetProperty("Picture6").Return(p => p.StringValue, String.Empty);
 
                     productPictureMetadata.Add(new ProductPictureMetadata
                     {
@@ -1070,6 +1073,9 @@ namespace Nop.Services.ExportImport
                         Picture1Path = picture1,
                         Picture2Path = picture2,
                         Picture3Path = picture3,
+                        Picture4Path = picture4,
+                        Picture5Path = picture5,
+                        Picture6Path = picture6,
                         IsNew = isNew
                     });
 
@@ -1487,9 +1493,15 @@ namespace Nop.Services.ExportImport
         protected class ProductPictureMetadata
         {
             public Product ProductItem { get; set; }
+
+            public IEnumerable<string> PicturePaths { get; set; }
+
             public string Picture1Path { get; set; }
             public string Picture2Path { get; set; }
             public string Picture3Path { get; set; }
+            public string Picture4Path { get; set; }
+            public string Picture5Path { get; set; }
+            public string Picture6Path { get; set; }
             public bool IsNew { get; set; }
         }
 
