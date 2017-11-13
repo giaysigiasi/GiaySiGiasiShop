@@ -240,6 +240,20 @@ namespace Nop.Services.ExportImport
             }
         }
 
+        public static IEnumerable<string> GetAllFiles(string path, Func<FileInfo, bool> checkFile = null)
+        {
+            string mask = Path.GetFileName(path);
+            if (string.IsNullOrEmpty(mask))
+                mask = "*.*";
+            path = Path.GetDirectoryName(path);
+            string[] files = System.IO.Directory.GetFiles(path, mask, SearchOption.AllDirectories);
+            foreach (string file in files)
+            {
+                if (checkFile == null || checkFile(new FileInfo(file)))
+                    yield return file;
+            }
+        }
+
         protected virtual void ImportProductImagesUsingHash(IList<ProductPictureMetadata> productPictureMetadata, IList<Product> allProductsBySku)
         {
             //performance optimization, load all pictures hashes
@@ -250,38 +264,43 @@ namespace Nop.Services.ExportImport
 
             foreach (var product in productPictureMetadata)
             {
-                foreach (var picturePath in new[] { product.Picture1Path, product.Picture2Path, product.Picture3Path, product.Picture4Path, product.Picture5Path, product.Picture6Path })
+                var picturePaths = System.IO.Directory.GetFiles(product.FolderPaths).ToList();
+                picturePaths.Add(product.Picture1Path);
+                picturePaths.Add(product.Picture2Path);
+                picturePaths.Add(product.Picture3Path);
+
+                foreach (var picturePath in picturePaths)
                 {
-                    if (String.IsNullOrEmpty(picturePath))
-                        continue;
-
-                    var mimeType = GetMimeTypeFromFilePath(picturePath);
-                    var newPictureBinary = File.ReadAllBytes(picturePath);
-                    var pictureAlreadyExists = false;
-                    if (!product.IsNew)
+                    if (!String.IsNullOrEmpty(picturePath))
                     {
-                        var newImageHash = _encryptionService.CreateHash(newPictureBinary.Take(takeCount).ToArray());
-                        var newValidatedImageHash = _encryptionService.CreateHash(_pictureService.ValidatePicture(newPictureBinary, mimeType).Take(takeCount).ToArray());
+                        var mimeType = GetMimeTypeFromFilePath(picturePath);
+                        var newPictureBinary = File.ReadAllBytes(picturePath);
+                        var pictureAlreadyExists = false;
+                        if (!product.IsNew)
+                        {
+                            var newImageHash = _encryptionService.CreateHash(newPictureBinary.Take(takeCount).ToArray());
+                            var newValidatedImageHash = _encryptionService.CreateHash(_pictureService.ValidatePicture(newPictureBinary, mimeType).Take(takeCount).ToArray());
 
-                        var imagesIds = productsImagesIds.ContainsKey(product.ProductItem.Id)
-                            ? productsImagesIds[product.ProductItem.Id]
-                            : new int[0];
+                            var imagesIds = productsImagesIds.ContainsKey(product.ProductItem.Id)
+                                ? productsImagesIds[product.ProductItem.Id]
+                                : new int[0];
 
-                        pictureAlreadyExists = allPicturesHashes.Where(p => imagesIds.Contains(p.Key)).Select(p => p.Value).Any(p => p == newImageHash || p == newValidatedImageHash);
+                            pictureAlreadyExists = allPicturesHashes.Where(p => imagesIds.Contains(p.Key)).Select(p => p.Value).Any(p => p == newImageHash || p == newValidatedImageHash);
+                        }
+
+                        if (pictureAlreadyExists)
+                            continue;
+                        var newPicture = _pictureService.InsertPicture(newPictureBinary, mimeType, _pictureService.GetPictureSeName(product.ProductItem.Name));
+                        product.ProductItem.ProductPictures.Add(new ProductPicture
+                        {
+                            //EF has some weird issue if we set "Picture = newPicture" instead of "PictureId = newPicture.Id"
+                            //pictures are duplicated
+                            //maybe because entity size is too large
+                            PictureId = newPicture.Id,
+                            DisplayOrder = 1,
+                        });
+                        _productService.UpdateProduct(product.ProductItem);
                     }
-
-                    if (pictureAlreadyExists)
-                        continue;
-                    var newPicture = _pictureService.InsertPicture(newPictureBinary, mimeType, _pictureService.GetPictureSeName(product.ProductItem.Name));
-                    product.ProductItem.ProductPictures.Add(new ProductPicture
-                    {
-                        //EF has some weird issue if we set "Picture = newPicture" instead of "PictureId = newPicture.Id"
-                        //pictures are duplicated
-                        //maybe because entity size is too large
-                        PictureId = newPicture.Id,
-                        DisplayOrder = 1,
-                    });
-                    _productService.UpdateProduct(product.ProductItem);
                 }
             }
         }
@@ -1063,9 +1082,6 @@ namespace Nop.Services.ExportImport
                     var picture1 = manager.GetProperty("Picture1").Return(p => p.StringValue, String.Empty);
                     var picture2 = manager.GetProperty("Picture2").Return(p => p.StringValue, String.Empty);
                     var picture3 = manager.GetProperty("Picture3").Return(p => p.StringValue, String.Empty);
-                    var picture4 = manager.GetProperty("Picture4").Return(p => p.StringValue, String.Empty);
-                    var picture5 = manager.GetProperty("Picture5").Return(p => p.StringValue, String.Empty);
-                    var picture6 = manager.GetProperty("Picture6").Return(p => p.StringValue, String.Empty);
 
                     productPictureMetadata.Add(new ProductPictureMetadata
                     {
@@ -1073,9 +1089,7 @@ namespace Nop.Services.ExportImport
                         Picture1Path = picture1,
                         Picture2Path = picture2,
                         Picture3Path = picture3,
-                        Picture4Path = picture4,
-                        Picture5Path = picture5,
-                        Picture6Path = picture6,
+                        FolderPaths = manager.GetProperty("ImagesFolder").Return(p => p.StringValue, String.Empty),
                         IsNew = isNew
                     });
 
@@ -1496,12 +1510,11 @@ namespace Nop.Services.ExportImport
 
             public IEnumerable<string> PicturePaths { get; set; }
 
+            public string FolderPaths { get; set; }
+
             public string Picture1Path { get; set; }
             public string Picture2Path { get; set; }
             public string Picture3Path { get; set; }
-            public string Picture4Path { get; set; }
-            public string Picture5Path { get; set; }
-            public string Picture6Path { get; set; }
             public bool IsNew { get; set; }
         }
 
