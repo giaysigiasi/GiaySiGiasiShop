@@ -1,0 +1,3 @@
+1. Plugin Using jssor slider to display the slide images for banners on every category Page.
+2. Easy to install plugin in admin section. manage Sliding speed and effect from configuration.
+3. Put text over banners even set text position over banners from plugin configuration.
