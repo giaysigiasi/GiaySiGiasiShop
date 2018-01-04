@@ -20,6 +20,7 @@ namespace Nop.Admin.Models.Catalog
             ProductPictureModels = new List<ProductPictureModel>();
             CopyProductModel = new CopyProductModel();
             AddPictureModel = new ProductPictureModel();
+            AddMultiplePictureModel = new List<ProductPictureModel>();
             AddSpecificationAttributeModel = new AddProductSpecificationAttributeModel();
             ProductWarehouseInventoryModels = new List<ProductWarehouseInventoryModel>();
             ProductEditorSettingsModel = new ProductEditorSettingsModel();
@@ -431,6 +432,7 @@ namespace Nop.Admin.Models.Catalog
         
         //pictures
         public ProductPictureModel AddPictureModel { get; set; }
+        public IList<ProductPictureModel> AddMultiplePictureModel { get; set; }
         public IList<ProductPictureModel> ProductPictureModels { get; set; }
 
         //add specification attribute model

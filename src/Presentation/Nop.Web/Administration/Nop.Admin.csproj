@@ -1074,6 +1074,8 @@
     <Content Include="Scripts\chartjs\Chart.min.js" />
     <Content Include="Scripts\farbtastic.js" />
     <Content Include="Scripts\fineuploader\edit.gif" />
+    <Content Include="Scripts\fineuploader\fine-uploader-gallery.css" />
+    <Content Include="Scripts\fineuploader\fine-uploader-new.css" />
     <Content Include="Scripts\fineuploader\fineuploader-4.2.2.css" />
     <Content Include="Scripts\fineuploader\fineuploader-4.2.2.min.css" />
     <Content Include="Scripts\fineuploader\iframe.xss.response-4.2.2.js" />

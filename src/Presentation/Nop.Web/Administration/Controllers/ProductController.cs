@@ -2172,6 +2172,50 @@ namespace Nop.Admin.Controllers
             return Json(new { Result = true }, JsonRequestBehavior.AllowGet);
         }
 
+        [ValidateInput(false)]
+        public virtual ActionResult ProductMultiplePictureAdd(List<int> pictureIds, int displayOrder,
+            string overrideAltAttribute, string overrideTitleAttribute,
+            int productId)
+        {
+            if (!_permissionService.Authorize(StandardPermissionProvider.ManageProducts))
+                return AccessDeniedView();
+
+            if (pictureIds.Count == 0)
+                throw new ArgumentException();
+
+            var product = _productService.GetProductById(productId);
+            if (product == null)
+                throw new ArgumentException("No product found with the specified id");
+
+            //a vendor should have access only to his products
+            if (_workContext.CurrentVendor != null && product.VendorId != _workContext.CurrentVendor.Id)
+                return RedirectToAction("List");
+
+            foreach (int pictureId in pictureIds)
+            {
+                var picture = _pictureService.GetPictureById(pictureId);
+                if (picture == null)
+                    throw new ArgumentException("No picture found with the specified id");
+
+                _pictureService.UpdatePicture(picture.Id,
+                    _pictureService.LoadPictureBinary(picture),
+                    picture.MimeType,
+                    picture.SeoFilename,
+                    overrideAltAttribute,
+                    overrideTitleAttribute);
+
+                _pictureService.SetSeoFilename(pictureId, _pictureService.GetPictureSeName(product.Name));
+
+                _productService.InsertProductPicture(new ProductPicture
+                {
+                    PictureId = pictureId,
+                    ProductId = productId,
+                    DisplayOrder = displayOrder++,
+                });
+            }
+            return Json(new { Result = true }, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public virtual ActionResult ProductPictureList(DataSourceRequest command, int productId)
         {
