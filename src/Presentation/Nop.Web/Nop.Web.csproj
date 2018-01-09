@@ -1587,6 +1587,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Plugins\bin\" />
+    <Folder Include="Plugins\NYCO.Content.RewardPoints\" />
+    <Folder Include="Plugins\NYCO.Core\" />
     <Folder Include="Themes\GrandNodeTheme\Plugins\" />
   </ItemGroup>
   <ItemGroup>
