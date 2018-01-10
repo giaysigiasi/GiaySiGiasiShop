@@ -1,0 +1,192 @@
+﻿@{
+    Html.AddCssFileParts("~/Plugins/Widgets.BsProductVideo/Content/styles.css");
+}
+@model ProductVideoRecordModel
+@using Nop.Core.Infrastructure
+@using Nop.Plugin.Widgets.BsProductVideo.Models;
+@using Nop.Web.Framework;
+@using Nop.Web.Framework.UI;
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(false)
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    
+    <div class="section-header">
+        <div class="title">
+            <img src="@Url.Content("~/Administration/Content/images/ico-content.png")" alt="" />
+            @T("Admin.Common.AddNew") @Html.ActionLink("(" + T("Admin.Common.BackToList") + ")", "List")
+        </div>
+        <div class="options">
+            <input type="submit" name="save" class="k-button" value="@T("Admin.Common.Save")" />
+            @*<input type="submit" name="save-continue" class="k-button" value="@T("Admin.Common.SaveContinue")" />*@
+        </div>
+    </div>
+    
+    <table class="adminContent">
+        <tr>
+            <td class="adminTitle">
+                @Html.NopLabelFor(model => model.VideoThumbId):
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.VideoThumbId)
+                @Html.ValidationMessageFor(model => model.VideoThumbId)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.NopLabelFor(model => model.EmbedVideoHtmlCode):
+            </td>
+            <td class="adminData">
+                @Html.TextAreaFor(model => model.EmbedVideoHtmlCode, "RichEditor")
+                @Html.ValidationMessageFor(model => model.EmbedVideoHtmlCode)
+            </td>
+        </tr>
+        @Html.HiddenFor(model => model.ProductId)
+       
+        <tr>
+            <td colspan="2">
+                <input type="submit" name="save" class="k-button" value="@T("Admin.Common.Save")" />
+                @*<input type="submit" name="save-continue" class="k-button" value="@T("Admin.Common.SaveContinue")" />*@
+            </td>
+        </tr>
+    </table>
+    
+}
+<div>
+    <script>
+        $( document ).ready()
+        {
+            $("form").attr( "id", "product-video-form" )
+        }
+    </script>
+    @DtaGrid()
+</div>
+@helper DtaGrid()
+{
+    var defaultGridPageSize = EngineContext.Current.Resolve<Nop.Core.Domain.Common.AdminAreaSettings>().DefaultGridPageSize;
+    var gridPageSizes = EngineContext.Current.Resolve<Nop.Core.Domain.Common.AdminAreaSettings>().GridPageSizes;
+
+    <table class="adminContent">
+
+        <tr class="adminSeparator">
+            <td colspan="2">
+                <hr />
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+
+                <div id="producsvideorecords-grid"></div>
+
+                <script>
+                    $(document).ready(function() {
+                        $("#producsvideorecords-grid").kendoGrid({
+                            dataSource: {
+                                type: "json",
+                                transport: {
+                                    read: {
+                                        url: "@Html.Raw(Url.Action("ProductVideoRecordList", "ProductVideo", new { productId = Model.ProductId }))",
+                                        type: "POST",
+                                        dataType: "json",
+                                        data: addAntiForgeryToken
+                                    },
+                                    update: {
+                                        url: "@Html.Raw(Url.Action("ProductVideoRecordUpdate", "ProductVideo", new RouteValueDictionary { { "Namespaces", "Nop.Plugin.Widgets.BsProductVideo.Controllers" }, { "area", "" } }))",
+                                        type: "POST",
+                                        dataType: "json",
+                                        data: addAntiForgeryToken
+                                    },
+                                    destroy: {
+                                        url: "@Html.Raw(Url.Action("ProductVideoRecordDelete", "ProductVideo", new RouteValueDictionary { { "Namespaces", "Nop.Plugin.Widgets.BsProductVideo.Controllers" }, { "area", "" } }))",
+                                        type: "POST",
+                                        dataType: "json",
+                                        data: addAntiForgeryToken
+                                    },
+                                },
+                                schema: {
+                                    data: "Data",
+                                    total: "Total",
+                                    errors: "Errors",
+                                    model: {
+                                        id: "Id",
+                                        fields: {
+                                            Id: { editable: false, type: "number" },
+                                            ProductId: { editable: false, type: "number" },
+                                            EmbedVideoHtmlCode:{editable: true, type: "string"},
+                                            ProductName: { editable: false, type: "string" },
+                                            VideoThumbUrl: { editable: false, type: "string" },
+                                        }
+                                    }
+                                },
+                                requestEnd: function(e) {
+                                    if (e.type == "update") {
+                                        this.read();
+                                    }
+                                },
+                                error: function(e) {
+                                    display_kendoui_grid_error(e);
+                                    // Cancel the changes
+                                    this.cancelChanges();
+                                },
+                                pageSize: @(defaultGridPageSize),
+                                serverPaging: true,
+                                serverFiltering: true,
+                                serverSorting: true
+                            },
+                            pageable: {
+                                refresh: true,
+                                pageSizes: [@(gridPageSizes)]
+                            },
+                            editable: {
+                                confirmation: false,
+                                mode: "inline"
+                            },
+                            scrollable: false,
+                            columns: [{
+                                    field: "Id",
+                                    title: "ID",
+                                    width: 50,
+
+                                }
+                                ,{
+                                    field: "ProductId",
+                                    title: "ProductId",
+                                    width: 100,
+                                },
+
+                                {
+                                    field: "ProductName",
+                                    title: "@T("Plugin.Widgets.BsProductVideo.Product")",
+                                    width: 300
+                                },
+                                {
+                                    field: "VideoThumbUrl",
+                                    title: "@T("Admin.Catalog.Products.Fields.PictureThumbnailUrl")",
+                                    template: '<img src="#=VideoThumbUrl#" />',
+                                    width: 100
+                                },
+                                {
+                                    field: "EmbedVideoHtmlCode",
+                                    title: "@T("Plugin.Widgets.BsProductVideo.EmbedVideoHtmlCode")",
+                                width: 300,
+
+                                },
+                                {
+                                    command: [{
+                                            name: "edit",
+                                            text: "@T("Admin.Common.Edit")"
+                                        }, {
+                                            name: "destroy",
+                                            text: "@T("Admin.Common.Delete")"
+                                        }],
+                                    width: 200
+                                }]
+                        });
+                    });
+                </script>
+            </td>
+        </tr>
+    </table>
+}
