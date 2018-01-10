@@ -526,7 +526,7 @@ namespace Nop.Admin.Models.Catalog
         {
             public int ProductId { get; set; }
 
-            [UIHint("Picture")]
+            [UIHint("MultiplePictures")]
             [NopResourceDisplayName("Admin.Catalog.Products.Pictures.Fields.Picture")]
             public int PictureId { get; set; }
 
@@ -833,7 +833,7 @@ namespace Nop.Admin.Models.Catalog
             public bool DisplayColorSquaresRgb { get; set; }
 
             [NopResourceDisplayName("Admin.Catalog.Products.ProductAttributes.Attributes.Values.Fields.ImageSquaresPicture")]
-            [UIHint("Picture")]
+            [UIHint("MultiplePictures")]
             public int ImageSquaresPictureId { get; set; }
             public bool DisplayImageSquaresPicture { get; set; }
 

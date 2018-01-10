@@ -720,6 +720,11 @@
     <Content Include="Plugins\Tax.FixedOrByCountryStateZip\logo.jpg" />
     <Content Include="Plugins\Tax.FixedOrByCountryStateZip\Nop.Plugin.Tax.FixedOrByCountryStateZip.dll" />
     <Content Include="Plugins\Tax.FixedOrByCountryStateZip\Nop.Plugin.Tax.FixedOrByCountryStateZip.pdb" />
+    <Content Include="Plugins\Widgets.BsProductVideo\Content\styles.css" />
+    <Content Include="Plugins\Widgets.BsProductVideo\Description.txt" />
+    <Content Include="Plugins\Widgets.BsProductVideo\logo.jpg" />
+    <Content Include="Plugins\Widgets.BsProductVideo\Nop.Plugin.Widgets.BsProductVideo.dll" />
+    <Content Include="Plugins\Widgets.BsProductVideo\Nop.Plugin.Widgets.BsProductVideo.pdb" />
     <Content Include="Plugins\Widgets.GoogleAnalytics\Description.txt" />
     <Content Include="Plugins\Widgets.GoogleAnalytics\logo.jpg" />
     <Content Include="Plugins\Widgets.GoogleAnalytics\Nop.Plugin.Widgets.GoogleAnalytics.dll" />
@@ -867,6 +872,13 @@
     <Content Include="Plugins\Widgets.ThemeGrandNode\Views\customvalues.cshtml" />
     <Content Include="Plugins\Widgets.ThemeGrandNode\Views\PublicInfo.cshtml" />
     <Content Include="Plugins\Widgets.ThemeGrandNode\web.config" />
+    <Content Include="Plugins\Widgets.BsProductVideo\Nop.Plugin.Widgets.BsProductVideo.dll.config" />
+    <Content Include="Plugins\Widgets.BsProductVideo\Views\ProductVideo\Configure.cshtml" />
+    <Content Include="Plugins\Widgets.BsProductVideo\Views\ProductVideo\List.cshtml" />
+    <Content Include="Plugins\Widgets.BsProductVideo\Views\ProductVideo\PublicInfo.cshtml" />
+    <Content Include="Plugins\Widgets.BsProductVideo\Views\ProductVideo\VideoCreate.cshtml" />
+    <Content Include="Plugins\Widgets.BsProductVideo\Views\ProductVideo\_ViewStart.cshtml" />
+    <Content Include="Plugins\Widgets.BsProductVideo\web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\fineuploader\iframe.xss.response-4.2.2.js" />
     <Content Include="Scripts\fineuploader\jquery.fineuploader-4.2.2.js" />

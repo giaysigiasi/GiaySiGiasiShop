@@ -122,17 +122,13 @@
             <div class="panel-body">
                 <script type="text/javascript">
                     $(document).ready(function() {
-                        $('#addProductPicture').click(function () {
-                            var IdsArray = new Array();
-                            var Ids = $('span[id^="AddProductPicture_"]').map(function () {
-                                IdsArray.push(this.id.split("_")[1]);
-                            }).get().join();
-                            
+                        $('#addProductPicture').click(function() {
+                            var pictureId = $("#@Html.FieldIdFor(model => model.AddPictureModel.PictureId)").val();
                             var overrideAltAttribute = $("#@Html.FieldIdFor(model => model.AddPictureModel.OverrideAltAttribute)").val();
                             var overrideTitleAttribute = $("#@Html.FieldIdFor(model => model.AddPictureModel.OverrideTitleAttribute)").val();
                             var displayOrder = $("#@Html.FieldIdFor(model => model.AddPictureModel.DisplayOrder)").val();
 
-                            if (IdsArray.length == 0) {
+                            if (pictureId == 0) {
                                 alert('Upload picture first');
                                 return;
                             }
@@ -140,25 +136,23 @@
                             $('#addProductPicture').attr('disabled', true);
 
                             var postData = {
-                                pictureIds: IdsArray,
+                                pictureId: pictureId,
                                 displayOrder: displayOrder,
                                 overrideAltAttribute: overrideAltAttribute,
                                 overrideTitleAttribute: overrideTitleAttribute,
-                                productId:  @Model.Id
+                                productId: @Model.Id
                                 };
                             addAntiForgeryToken(postData);
 
                             $.ajax({
                                 cache: false,
                                 type: "POST",
-                                url: "@(Url.Action("ProductMultiplePictureAdd", "Product"))",
+                                url: "@(Url.Action("ProductPictureAdd", "Product"))",
                                 data: postData,
                                 success: function(data) {
                                     var grid = $("#productpictures-grid");
                                     grid.data('kendoGrid').dataSource.read();
                                     $('#addProductPicture').attr('disabled', false);
-
-                                   $(".qq-upload-list").html('');
                                 },
                                 error: function(xhr, ajaxOptions, thrownError) {
                                     alert('Failed to add product picture.');
@@ -169,16 +163,6 @@
                     });
                 </script>
                 <div class="form-group">
-                    @foreach (var productPictureModel in Model.AddMultiplePictureModel)
-                    {
-                    <div class="col-md-3">
-                        @Html.NopLabelFor(model => (model.AddPictureModel.PictureId ))
-                    </div>
-                    <div class="col-md-9">
-                        @Html.NopEditorFor(x => x.AddPictureModel.PictureId)
-                        @Html.ValidationMessageFor(x => x.AddPictureModel.PictureId)
-                    </div>
-                    }
                     <div class="col-md-3">
                         @Html.NopLabelFor(model => model.AddPictureModel.PictureId)
                     </div>
