@@ -1817,6 +1817,8 @@
                             </script>
                         </div>
                     </div>
+                    @if (!Model.IsLoggedInAsVendor)
+                    {
                     <div class="form-group @(Model.ProductEditorSettingsModel.Stores ? null : "advanced-setting")">
                         <div class="@leftColumnClass">
                             @Html.NopLabelFor(model => model.SelectedStoreIds)
@@ -1831,7 +1833,7 @@
                                     });
 
                                     @if (Model.AvailableStores.Count == 0)
-                            {
+                                    {
                                 <text>
                                     storesIdsInput.setOptions({
                                         enable: false,
@@ -1840,7 +1842,7 @@
                                     storesIdsInput._placeholder();
                                     storesIdsInput._enable();
                                     </text>
-                            }
+                                    }
                                 });
                             </script>
                         </div>
@@ -1854,8 +1856,11 @@
                             @Html.ValidationMessageFor(model => model.VendorId)
                         </div>
                     </div>
+                    }
                 </div>
             </div>
+@if (!Model.IsLoggedInAsVendor)
+{
             <div class="panel panel-default @(Model.ProductEditorSettingsModel.ACL ? null : "advanced-setting")">
                 <div class="panel-heading">
                     @T("Admin.Catalog.Products.Security")
@@ -1875,7 +1880,7 @@
                                     });
 
                                     @if (Model.AvailableCustomerRoles.Count == 0)
-                            {
+{
                                 <text>
                                     rolesIdsInput.setOptions({
                                         enable: false,
@@ -1884,13 +1889,14 @@
                                     rolesIdsInput._placeholder();
                                     rolesIdsInput._enable();
                                     </text>
-                            }
+}
                                 });
                             </script>
                         </div>
                     </div>
                 </div>
             </div>
+}
             <div class="panel panel-default @(Model.ProductEditorSettingsModel.RequireOtherProductsAddedToTheCart ? null : "advanced-setting")" id="group-required-other-products">
                 <div class="panel-heading">
                     @T("Admin.Catalog.Products.RequireOtherProducts")

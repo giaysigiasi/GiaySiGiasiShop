@@ -187,6 +187,8 @@ namespace Nop.Services.Catalog
         public virtual IPagedList<Category> GetAllCategories(string categoryName = "", int storeId = 0, 
             int pageIndex = 0, int pageSize = int.MaxValue, bool showHidden = false)
         {
+            storeId = _workContext.CurrentVendor != null ? _workContext.CurrentVendor.Id : storeId;
+
             if (_commonSettings.UseStoredProcedureForLoadingCategories &&
                 _commonSettings.UseStoredProceduresIfSupported && _dataProvider.StoredProceduredSupported)
             {

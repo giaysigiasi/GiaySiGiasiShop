@@ -29,15 +29,12 @@ namespace Nop.Admin.Helpers
             if (cacheManager == null)
                 throw new ArgumentNullException("cacheManager");
 
-            string cacheKey = string.Format(ModelCacheEventConsumer.CATEGORIES_LIST_KEY, showHidden);
-            var listItems = cacheManager.Get(cacheKey, () =>
+            var categories = categoryService.GetAllCategories(showHidden: showHidden);
+             
+            var listItems = categoryService.GetAllCategories(showHidden: showHidden).Select(c => new SelectListItem
             {
-                var categories = categoryService.GetAllCategories(showHidden: showHidden);
-                return categories.Select(c => new SelectListItem
-                {
-                    Text = c.GetFormattedBreadCrumb(categories),
-                    Value = c.Id.ToString()
-                });
+                Text = c.GetFormattedBreadCrumb(categories),
+                Value = c.Id.ToString()
             });
 
             var result = new List<SelectListItem>();
