@@ -4641,6 +4641,11 @@ td.product-picture img {
     line-height: 22px;
 }
 
+.post-body,
+.news-body img {
+	max-width: 98%;
+}
+
 .blog-page .tags,
 .blogpost-page .tags {
     margin: 0 0 15px;

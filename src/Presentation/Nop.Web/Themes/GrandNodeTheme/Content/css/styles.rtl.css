@@ -3466,6 +3466,12 @@ input.qq-edit-filename {
 	padding: 0 10px;
 	line-height: 22px;
 }
+
+.post-body,
+.news-body img {
+	max-width: 98%;
+}
+
 .card-tags {
 	margin: 0 0 15px;
 	overflow: hidden;
@@ -3526,11 +3532,12 @@ input.qq-edit-filename {
     padding: 24px 0;
     line-height: 28px;
 }
-    .blogpost-body>.post-body p {
-        margin: 0 0 22px 0;
-        font-size: 16px;
-        text-align: right;
-    }
+
+.blogpost-body>.post-body p {
+    margin: 0 0 22px 0;
+    font-size: 16px;
+    text-align: right;
+}
 
 .blogpost-body>.post-body ul li {
     list-style: disc !important;

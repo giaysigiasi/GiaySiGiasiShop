@@ -14,9 +14,10 @@
                         <a class="news-title" href="@Url.RouteUrl("NewsItem", new { SeName = item.SeName })">@item.Title</a>
                         <span class="news-date">@item.CreatedOn.ToString("dd/MM/yyyy")</span>
                     </div>
-                    <div class="news-body">
-                        @Html.Raw(item.Short)
-                    </div>
+					<div class="news-body">
+						@Html.Raw(item.Short)
+						<div>@Html.Raw(item.FirstPostImage)</div>
+					</div>
                     <div class="buttons">
                         <a href="@Url.RouteUrl("NewsItem", new { SeName = item.SeName })" class="waves-effect btn-flat">@T("News.MoreInfo")</a>
                     </div>

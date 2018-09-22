@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using FluentValidation.Attributes;
+﻿using FluentValidation.Attributes;
 using Nop.Web.Framework.Mvc;
 using Nop.Web.Validators.News;
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Nop.Web.Models.News
 {
-    [Validator(typeof(NewsItemValidator))]
+	[Validator(typeof(NewsItemValidator))]
     public partial class NewsItemModel : BaseNopEntityModel
     {
         public NewsItemModel()
@@ -23,7 +24,19 @@ namespace Nop.Web.Models.News
         public string Title { get; set; }
         public string Short { get; set; }
         public string Full { get; set; }
-        public bool AllowComments { get; set; }
+
+		public string FirstPostImage
+		{
+			get
+			{
+				string pattern = @"<(img)\b[^>]*>";
+				Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
+				MatchCollection matches = rgx.Matches(Full);
+				return matches[0].ToString();
+			}
+		}
+
+		public bool AllowComments { get; set; }
         public int NumberOfComments { get; set; }
         public DateTime CreatedOn { get; set; }
 

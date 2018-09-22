@@ -25,6 +25,7 @@
                     </div>
                     <div class="card-content">
                         @Html.Raw(item.Short)
+						<div>@Html.Raw(item.FirstPostImage)</div>
                     </div>
                     <div class="card-action">
                         <button onclick="location.href='@Url.RouteUrl("NewsItem", new { SeName = item.SeName })'" class="btn waves-effect waves-light" type="submit">@T("News.MoreInfo")</button>
