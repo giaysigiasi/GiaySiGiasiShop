@@ -3428,6 +3428,7 @@ input.qq-edit-filename {
 .news-items .news-item {
 	margin: 0 0 30px;
 }
+
 .blog-page .post:after {
 	content: "";
 	display: block;
@@ -3471,6 +3472,11 @@ input.qq-edit-filename {
 	padding: 0 10px;
 	line-height: 22px;
 }
+	.post-body,
+	.news-body img {
+		max-width: 98%;
+		height: auto;
+	}
 .card-tags {
 	margin: 0 0 15px;
 	overflow: hidden;
@@ -3514,9 +3520,10 @@ input.qq-edit-filename {
     padding: 0 24px;
 }
 
-.blogpost-body img {
-	max-width: 98%;
-}
+	.blogpost-body img {
+		max-width: 98%;
+		height: auto;
+	}
 
 .blogpost-body>.post-date,
 .news-item-body>.news-date {
@@ -5854,6 +5861,12 @@ select[name="DateOfBirthYear"] {
 	width: 31.33333%;
 	margin: 0 1% 30px;
 }
+
+	.news-list-homepage .news-item img {
+		max-width: 98%;
+		height: auto;
+	}
+
 .news-list-homepage .news-item:nth-child(3n+1) {
 	clear: both;
 }
@@ -6188,9 +6201,10 @@ and (max-device-width : 1024px)  {
     padding: 0 0 0 20px;
 }
 
-.card .card-content img {
-	max-width: 98%;
-}
+	.card .card-content img {
+		max-width: 98%;
+		height: auto;
+	}
 
 .select-wrapper input.select-dropdown {
     margin: 0 0 -20px 0;

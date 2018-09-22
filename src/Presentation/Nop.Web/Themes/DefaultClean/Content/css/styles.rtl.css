@@ -4144,10 +4144,11 @@ label, label + * {
 	line-height: 22px;
 }
 
-.post-body,
-.news-body img {
-	max-width: 98%;
-}
+	.post-body,
+	.news-body img {
+		max-width: 98%;
+		height: auto;
+	}
 
 .blog-page .tags, 
 .blogpost-page .tags {
@@ -6757,6 +6758,12 @@ pre {
 	width: 31.33333%;
 	margin: 0 1% 30px;
 }
+
+	.news-list-homepage .news-item img {
+		max-width: 98%;
+		height: auto;
+	}
+
 .news-list-homepage .news-item:nth-child(3n+1) {
 	clear: both;
 }

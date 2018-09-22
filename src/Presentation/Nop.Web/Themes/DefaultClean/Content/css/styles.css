@@ -6680,6 +6680,12 @@ pre {
 	width: 31.33333%;
 	margin: 0 1% 30px;
 }
+
+.news-list-homepage .news-item img {
+	max-width: 98%;
+	height: auto;
+}
+
 .news-list-homepage .news-item:nth-child(3n+1) {
 	clear: both;
 }
