@@ -3509,6 +3509,10 @@ input.qq-edit-filename {
     padding: 0 24px;
 }
 
+.blogpost-body img {
+	max-width: 98%;
+}
+
 .blogpost-body>.post-date,
 .news-item-body>.news-date {
     padding: 0 0 24px 0;
@@ -6266,6 +6270,10 @@ and (max-device-width : 1024px)  {
 
 .card .card-content {
     padding: 0 20px 0 0;
+}
+
+.card .card-content img {
+	max-width: 98%;
 }
 
 .select-wrapper input.select-dropdown {

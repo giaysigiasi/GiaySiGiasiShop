@@ -47,9 +47,10 @@
                         <span class="card-date">@item.CreatedOn.ToString("dd/MM/yyyy")</span>
                     </div>
                     @Html.Widget("bloglist_page_before_post_body", item.Id)
-                    <div class="card-content">
-                        @Html.Raw(!String.IsNullOrEmpty(item.BodyOverview) ? item.BodyOverview : item.Body)
-                    </div>
+					<div class="card-content">
+					@*	@Html.Raw(!String.IsNullOrEmpty(item.BodyOverview) ? item.BodyOverview : item.Body)*@
+						@Html.Raw(item.FirstPostImage)
+					</div>
                     @Html.Widget("bloglist_page_after_post_body", item.Id)
                     <div class="blog-details">
                         @if (item.Tags.Count > 0)
