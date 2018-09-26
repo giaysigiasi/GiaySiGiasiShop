@@ -1,17 +1,24 @@
 ﻿@model ProductDetailsModel
 @using Nop.Web.Models.Catalog;
 @{
-    Html.AddScriptParts("~/Scripts/jquery.magnific-popup.min.js");
-    Html.AddCssFileParts("~/Content/magnific-popup/magnific-popup.css");
+	Html.AddScriptParts("~/Scripts/jquery.magnific-popup.min.js");
+	Html.AddScriptParts("~/Scripts/jquery.elevatezoom.js");
+	Html.AddCssFileParts("~/Content/magnific-popup/magnific-popup.css");
 }
 <div class="gallery">
-    <div class="picture">
-        @if (Model.DefaultPictureZoomEnabled)
-        {
-            <a href="@Model.DefaultPictureModel.FullSizeImageUrl" title="@Model.DefaultPictureModel.Title" id="main-product-img-lightbox-anchor-@Model.Id">
-                <img alt="@Model.DefaultPictureModel.AlternateText" src="@Model.DefaultPictureModel.ImageUrl" title="@Model.DefaultPictureModel.Title" itemprop="image" id="main-product-img-@Model.Id" />
-            </a>
-            <script type="text/javascript">
+	<div class="picture">
+		@if (Model.DefaultPictureZoomEnabled)
+		{
+		<a href="@Model.DefaultPictureModel.FullSizeImageUrl" title="@Model.DefaultPictureModel.Title" id="main-product-img-lightbox-anchor-@Model.Id">
+			<img alt="@Model.DefaultPictureModel.AlternateText"
+				 src="@Model.DefaultPictureModel.ImageUrl" 
+				 data-zoom-image="@Model.DefaultPictureModel.FullSizeImageUrl" 
+				 title="@Model.DefaultPictureModel.Title" 
+				 itemprop="image"
+				 id="main-product-img-@Model.Id" />
+		</a>
+			
+		<script type="text/javascript">
                 $(document).ready(function () {
                     $('#main-product-img-lightbox-anchor-@Model.Id').magnificPopup(
                     {
@@ -25,15 +32,22 @@
                         },
                         tClose: '@T("Media.MagnificPopup.Close")',
                         tLoading: '@T("Media.MagnificPopup.Loading")'
-                    });
+						});
+					
+					 $('#main-product-img-@Model.Id').elevateZoom({
+						zoomType: "inner",
+						cursor: "crosshair",
+						zoomWindowFadeIn: 500,
+						 zoomWindowFadeOut: 750
+					});
                 });
-            </script>
-        }
-        else
-        {
-            <img alt="@Model.DefaultPictureModel.AlternateText" src="@Model.DefaultPictureModel.ImageUrl" title="@Model.DefaultPictureModel.Title" itemprop="image" width="650" data-caption="@Model.DefaultPictureModel.AlternateText" id="main-product-img-@Model.Id" />
-        }
-    </div>
+		</script>
+		}
+		else
+		{
+			<img alt="@Model.DefaultPictureModel.AlternateText" src="@Model.DefaultPictureModel.ImageUrl" title="@Model.DefaultPictureModel.Title" itemprop="image" width="650" data-caption="@Model.DefaultPictureModel.AlternateText" id="main-product-img-@Model.Id" />
+		}
+	</div>
     @if (Model.PictureModels.Count > 1)
     {
         <div class="picture-thumbs">
@@ -45,14 +59,22 @@
             }
         </div>
         <script type="text/javascript">
-            $(document).ready(function () {
+			$(document).ready(function () {
+
                 $('.thumb-item img').on('click', function () {
                     $('#main-product-img-@Model.Id').attr('src', $(this).attr('data-defaultsize'));
                     $('#main-product-img-@Model.Id').attr('title', $(this).attr('title'));
-                    $('#main-product-img-@Model.Id').attr('alt', $(this).attr('alt'));
+					$('#main-product-img-@Model.Id').attr('alt', $(this).attr('alt'));
+					$('#main-product-img-@Model.Id').data('zoom-image', $(this).attr('data-fullsize'));
                     $('#main-product-img-lightbox-anchor-@Model.Id').attr('href', $(this).attr('data-fullsize'));
-                    $('#main-product-img-lightbox-anchor-@Model.Id').attr('title', $(this).attr('title'));
-                });
+					$('#main-product-img-lightbox-anchor-@Model.Id').attr('title', $(this).attr('title'));
+					$('#main-product-img-@Model.Id').elevateZoom({
+						zoomType: "inner",
+						cursor: "crosshair",
+						zoomWindowFadeIn: 500,
+						 zoomWindowFadeOut: 750
+					});
+				});
             });
         </script>
     }
