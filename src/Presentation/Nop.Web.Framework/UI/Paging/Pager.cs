@@ -182,7 +182,7 @@ namespace Nop.Web.Framework.UI.Paging
             var result = links.ToString();
             if (!String.IsNullOrEmpty(result))
             {
-                result = "<ul>" + result + "</ul>";
+                result = "<ul class=\"pagination\">" + result + "</ul>";
             }
             return result;
 		}
