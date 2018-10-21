@@ -425,7 +425,7 @@ namespace Nop.Services.Catalog
             bool searchProductTags = false,
             int languageId = 0,
             IList<int> filteredSpecs = null,
-            ProductSortingEnum orderBy = ProductSortingEnum.Position,
+            ProductSortingEnum orderBy = ProductSortingEnum.CreatedOn,
             bool showHidden = false,
             bool? overridePublished = null)
         {
@@ -497,7 +497,7 @@ namespace Nop.Services.Catalog
             bool searchProductTags = false,
             int languageId = 0,
             IList<int> filteredSpecs = null,
-            ProductSortingEnum orderBy = ProductSortingEnum.Position,
+            ProductSortingEnum orderBy = ProductSortingEnum.CreatedOn,
             bool showHidden = false,
             bool? overridePublished = null)
         {

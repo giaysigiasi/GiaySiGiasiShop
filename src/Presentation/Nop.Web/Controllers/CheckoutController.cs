@@ -1165,9 +1165,15 @@ namespace Nop.Web.Controllers
                     //new address
                     var model = new CheckoutBillingAddressModel();
                     TryUpdateModel(model.NewAddress, "BillingNewAddress");
+					model.NewAddress.CountryId = 234;
+					model.NewAddress.CountryName = "Viet Nam";
+					model.NewAddress.ZipPostalCode = "070000";
+					model.NewAddress.City = "Ho Chi Minh";
+					model.NewAddress.StateProvinceId = 0;
 
-                    //custom address attributes
-                    var customAttributes = form.ParseCustomAddressAttributes(_addressAttributeParser, _addressAttributeService);
+
+					//custom address attributes
+					var customAttributes = form.ParseCustomAddressAttributes(_addressAttributeParser, _addressAttributeService);
                     var customAttributeWarnings = _addressAttributeParser.GetAttributeWarnings(customAttributes);
                     foreach (var error in customAttributeWarnings)
                     {

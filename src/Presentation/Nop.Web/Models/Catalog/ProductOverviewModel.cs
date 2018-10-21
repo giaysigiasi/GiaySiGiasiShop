@@ -8,7 +8,9 @@ namespace Nop.Web.Models.Catalog
 {
     public partial class ProductOverviewModel : BaseNopEntityModel
     {
-        public ProductOverviewModel()
+		private string name;
+
+		public ProductOverviewModel()
         {
             ProductPrice = new ProductPriceModel();
             DefaultPictureModel = new PictureModel();
@@ -16,8 +18,23 @@ namespace Nop.Web.Models.Catalog
             ReviewOverviewModel = new ProductReviewOverviewModel();
         }
 
-        public string Name { get; set; }
-        public string ShortDescription { get; set; }
+		public string Name
+		{
+			get
+			{
+				var outOfStockMessage = Quantity.Equals(0) ? "(HẾT HÀNG)" : string.Empty;
+
+				return $"{this.name} {outOfStockMessage}";
+			}
+			set
+			{
+				this.name = value;
+			}
+		}
+		public int Quantity { get; set; }
+		public bool EnableAddToCart => Quantity > 0;
+
+		public string ShortDescription { get; set; }
         public string FullDescription { get; set; }
         public string SeName { get; set; }
 

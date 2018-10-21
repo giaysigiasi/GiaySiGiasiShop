@@ -11,7 +11,9 @@ namespace Nop.Web.Models.Catalog
 {
     public partial class ProductDetailsModel : BaseNopEntityModel
     {
-        public ProductDetailsModel()
+		private string name;
+
+		public ProductDetailsModel()
         {
             DefaultPictureModel = new PictureModel();
             PictureModels = new List<PictureModel>();
@@ -34,13 +36,27 @@ namespace Nop.Web.Models.Catalog
         public PictureModel DefaultPictureModel { get; set; }
         public IList<PictureModel> PictureModels { get; set; }
 
-        public string Name { get; set; }
+        public string Name
+		{
+			get
+			{
+				var outOfStockMessage = Quantity.Equals(0) ? "(HẾT HÀNG)" : string.Empty;
+
+				return $"{this.name} {outOfStockMessage}" ;
+			}
+			set
+			{
+				this.name = value;
+			}
+		}
         public string ShortDescription { get; set; }
         public string FullDescription { get; set; }
         public string MetaKeywords { get; set; }
         public string MetaDescription { get; set; }
         public string MetaTitle { get; set; }
         public string SeName { get; set; }
+		public int Quantity { get; set; }
+		public bool EnableAddToCart => Quantity > 0;
 
         public ProductType ProductType { get; set; }
 

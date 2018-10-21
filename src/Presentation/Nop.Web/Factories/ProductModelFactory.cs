@@ -30,6 +30,8 @@ using Nop.Web.Infrastructure.Cache;
 using Nop.Web.Models.Catalog;
 using Nop.Web.Models.Common;
 using Nop.Web.Models.Media;
+using Nop.Services.Catalog;
+using Nop.Core.Infrastructure;
 
 namespace Nop.Web.Factories
 {
@@ -1123,7 +1125,8 @@ namespace Nop.Web.Factories
                 var model = new ProductOverviewModel
                 {
                     Id = product.Id,
-                    Name = product.GetLocalized(x => x.Name),
+					Quantity = EngineContext.Current.Resolve<IProductService>().GetProductById(product.Id).StockQuantity,
+					Name = product.GetLocalized(x => x.Name),
                     ShortDescription = product.GetLocalized(x => x.ShortDescription),
                     FullDescription = product.GetLocalized(x => x.FullDescription),
                     SeName = product.GetSeName(),
@@ -1173,11 +1176,12 @@ namespace Nop.Web.Factories
             if (product == null)
                 throw new ArgumentNullException("product");
 
-            //standard properties
-            var model = new ProductDetailsModel
+			//standard properties
+			var model = new ProductDetailsModel
             {
                 Id = product.Id,
-                Name = product.GetLocalized(x => x.Name),
+				Quantity= EngineContext.Current.Resolve<IProductService>().GetProductById(product.Id).StockQuantity,
+                Name = product.GetLocalized(x =>x.Name),
                 ShortDescription = product.GetLocalized(x => x.ShortDescription),
                 FullDescription = product.GetLocalized(x => x.FullDescription),
                 MetaKeywords = product.GetLocalized(x => x.MetaKeywords),
@@ -1195,8 +1199,9 @@ namespace Nop.Web.Factories
                 ManageInventoryMethod = product.ManageInventoryMethod,
                 StockAvailability = product.FormatStockMessage("", _localizationService, _productAttributeParser, _dateRangeService),
                 HasSampleDownload = product.IsDownload && product.HasSampleDownload,
-                DisplayDiscontinuedMessage = !product.Published && _catalogSettings.DisplayDiscontinuedMessageForUnpublishedProducts
-            };
+                DisplayDiscontinuedMessage = !product.Published && _catalogSettings.DisplayDiscontinuedMessageForUnpublishedProducts,
+				
+			};
 
             //automatically generate product description?
             if (_seoSettings.GenerateProductMetaDescription && String.IsNullOrEmpty(model.MetaDescription))
@@ -1264,9 +1269,9 @@ namespace Nop.Web.Factories
                 model.DisplayBackInStockSubscription = true;
             }
 
-            //breadcrumb
-            //do not prepare this model for the associated products. anyway it's not used
-            if (_catalogSettings.CategoryBreadcrumbEnabled && !isAssociatedProduct)
+			//breadcrumb
+			//do not prepare this model for the associated products. anyway it's not used
+			if (_catalogSettings.CategoryBreadcrumbEnabled && !isAssociatedProduct)
             {
                 model.Breadcrumb = PrepareProductBreadcrumbModel(product);
             }

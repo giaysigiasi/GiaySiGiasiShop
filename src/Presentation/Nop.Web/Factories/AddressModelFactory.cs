@@ -201,7 +201,7 @@ namespace Nop.Web.Factories
                 model.Company = customer.GetAttribute<string>(SystemCustomerAttributeNames.Company);
                 model.Address1 = customer.GetAttribute<string>(SystemCustomerAttributeNames.StreetAddress);
                 model.Address2 = customer.GetAttribute<string>(SystemCustomerAttributeNames.StreetAddress2);
-                model.ZipPostalCode = customer.GetAttribute<string>(SystemCustomerAttributeNames.ZipPostalCode);
+				model.ZipPostalCode = "70000";//customer.GetAttribute<string>(SystemCustomerAttributeNames.ZipPostalCode);
                 model.City = customer.GetAttribute<string>(SystemCustomerAttributeNames.City);
                 //ignore country and state for prepopulation. it can cause some issues when posting pack with errors, etc
                 //model.CountryId = customer.GetAttribute<int>(SystemCustomerAttributeNames.CountryId);
@@ -220,7 +220,7 @@ namespace Nop.Web.Factories
                     {
                         Text = c.GetLocalized(x => x.Name),
                         Value = c.Id.ToString(),
-                        Selected = c.Id == model.CountryId
+                        Selected = c.Id == model.CountryId || c.Id.Equals(234)
                     });
                 }
 
@@ -263,13 +263,13 @@ namespace Nop.Web.Factories
             model.StreetAddressRequired = addressSettings.StreetAddressRequired;
             model.StreetAddress2Enabled = addressSettings.StreetAddress2Enabled;
             model.StreetAddress2Required = addressSettings.StreetAddress2Required;
-            model.ZipPostalCodeEnabled = addressSettings.ZipPostalCodeEnabled;
-            model.ZipPostalCodeRequired = addressSettings.ZipPostalCodeRequired;
-            model.CityEnabled = addressSettings.CityEnabled;
-            model.CityRequired = addressSettings.CityRequired;
-            model.CountryEnabled = addressSettings.CountryEnabled;
-            model.StateProvinceEnabled = addressSettings.StateProvinceEnabled;
-            model.PhoneEnabled = addressSettings.PhoneEnabled;
+            model.ZipPostalCodeEnabled = false;//addressSettings.ZipPostalCodeEnabled;
+			model.ZipPostalCodeRequired = false;//addressSettings.ZipPostalCodeRequired;
+			model.CityEnabled = false;//addressSettings.CityEnabled;
+			model.CityRequired = false;//addressSettings.CityRequired;
+			model.CountryEnabled = false;//addressSettings.CountryEnabled;
+			model.StateProvinceEnabled = false;//addressSettings.StateProvinceEnabled;
+			model.PhoneEnabled = addressSettings.PhoneEnabled;
             model.PhoneRequired = addressSettings.PhoneRequired;
             model.FaxEnabled = addressSettings.FaxEnabled;
             model.FaxRequired = addressSettings.FaxRequired;

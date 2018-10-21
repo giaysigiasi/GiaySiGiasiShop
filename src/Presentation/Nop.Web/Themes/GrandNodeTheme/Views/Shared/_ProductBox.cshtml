@@ -80,40 +80,50 @@
                 }
             </div>
             @Html.Widget("productbox_addinfo_middle", Model.Id)
-            <div class="buttons">
-                @if (!Model.ProductPrice.DisableBuyButton)
-                {
-                    var addToCartText = T("ShoppingCart.AddToCart").Text;
-                    if (Model.ProductPrice.IsRental)
-                    {
-                        addToCartText = T("ShoppingCart.Rent").Text;
-                    }
-                    if (Model.ProductPrice.AvailableForPreOrder)
-                    {
-                        addToCartText = T("ShoppingCart.PreOrder").Text;
-                    }
-                    <a class="btn waves-light waves-effect" 
-                       onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">
-                        <i class="material-icons left">shopping_cart</i>
-                        @(addToCartText)
-                    </a>
-                }
-                <div class="product-action-buttons">
-                    @if (!Model.ProductPrice.DisableWishlistButton)
-                    {
-                        <a class="btn waves-light waves-effect tooltipped" data-position="bottom" data-delay="50" data-tooltip="@T("ShoppingCart.AddToWishlist")" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');return false;">
-                            <i class="material-icons">favorite</i>
-                        </a>
-                    }
-                    @if (!Model.ProductPrice.DisableAddToCompareListButton)
-                    {
-                        <a class="btn waves-light waves-effect tooltipped" data-position="bottom" data-delay="50" data-tooltip="@T("Products.Compare.AddToCompareList")" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;">
-                            <i class="material-icons">repeat</i>
-                        </a>
-                    }
-                    
-                </div>
-            </div>
+			<div class="buttons">
+				@if (!Model.ProductPrice.DisableBuyButton)
+				{
+					var addToCartText = T("ShoppingCart.AddToCart").Text;
+					if (Model.ProductPrice.IsRental)
+					{
+						addToCartText = T("ShoppingCart.Rent").Text;
+					}
+					if (Model.ProductPrice.AvailableForPreOrder)
+					{
+						addToCartText = T("ShoppingCart.PreOrder").Text;
+					}
+
+					if (Model.EnableAddToCart)
+					{
+						<a class="btn waves-light waves-effect"
+						   onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">
+							<i class="material-icons left">shopping_cart</i>
+							@(addToCartText)
+						</a>
+					}
+					else
+					{
+						<a class="btn waves-red waves-effect waves-ripple">
+							HẾT HÀNG
+						</a>
+					}
+				}
+				<div class="product-action-buttons">
+					@if (!Model.ProductPrice.DisableWishlistButton)
+					{
+						<a class="btn waves-light waves-effect tooltipped" data-position="bottom" data-delay="50" data-tooltip="@T("ShoppingCart.AddToWishlist")" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');return false;">
+							<i class="material-icons">favorite</i>
+						</a>
+					}
+					@if (!Model.ProductPrice.DisableAddToCompareListButton)
+					{
+						<a class="btn waves-light waves-effect tooltipped" data-position="bottom" data-delay="50" data-tooltip="@T("Products.Compare.AddToCompareList")" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;">
+							<i class="material-icons">repeat</i>
+						</a>
+					}
+
+				</div>
+			</div>
             @Html.Widget("productbox_addinfo_after", Model.Id)
         </div>
     </div>

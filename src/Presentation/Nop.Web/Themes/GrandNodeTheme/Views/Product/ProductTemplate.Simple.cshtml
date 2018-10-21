@@ -120,7 +120,10 @@
                         <!--wishlist, compare, email a friend & add to cart-->
                         <div class="overview-buttons">
                             
-                            @Html.Partial("_AddToCart", Model.AddToCart, dataDictAddToCart)
+							@if (Model.EnableAddToCart)
+							{
+								@Html.Partial("_AddToCart", Model.AddToCart, dataDictAddToCart)
+							}
                             @Html.Widget("productdetails_inside_overview_buttons_before", Model.Id)
                             @{
                                 var dataDictAddToWishlist = new ViewDataDictionary();

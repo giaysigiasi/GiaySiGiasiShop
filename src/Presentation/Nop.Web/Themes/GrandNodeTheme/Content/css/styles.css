@@ -6047,13 +6047,13 @@ select[name="DateOfBirthYear"] {
 
 
 .cart-footer .totals {
-	width: 395px;
+	width: 50%;
 	margin: 0;
 }
-.cart-footer .cart-collaterals {
-	width: 760px;
-	margin: 0;
-}
+	.cart-footer .cart-collaterals {
+		width: 50%;
+		margin: 0;
+	}
 .cart-footer .cart-collaterals .deals {
 	float: left;
 	width: 360px;
