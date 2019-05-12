@@ -9,20 +9,30 @@
 	<div class="picture">
 		@if (Model.DefaultPictureZoomEnabled)
 		{
-			<a href="@Model.DefaultPictureModel.FullSizeImageUrl" title="@Model.DefaultPictureModel.Title" id="main-product-img-lightbox-anchor-@Model.Id">
-				<img alt="@Model.DefaultPictureModel.AlternateText"
-					 src="@Model.DefaultPictureModel.ImageUrl"
-					 data-zoom-image="@Model.DefaultPictureModel.FullSizeImageUrl"
-					 title="@Model.DefaultPictureModel.Title"
-					 itemprop="image"
-					 id="main-product-img-@Model.Id" />
-			</a>
+			var i =0;
+			foreach (var picture in Model.PictureModels)
+				{
+					var hiddenClass = i > 0 ? "hiddendiv" : "";
 
+					<a class="@hiddenClass" href="@picture.FullSizeImageUrl" title="@picture.Title" id="main-product-img-lightbox-anchor-@Model.Id">
+					<img alt="@picture.AlternateText"
+						 src="@picture.ImageUrl"
+						 data-zoom-image="@picture.FullSizeImageUrl"
+						 title="@picture.Title"
+						 itemprop="image"
+						 id="main-product-img-@Model.Id" />
+					</a>
+
+					i++;
+				}
+			
+		
 			<script type="text/javascript">
                 $(document).ready(function () {
-                    $('#main-product-img-lightbox-anchor-@Model.Id').magnificPopup(
+                    $('.picture').magnificPopup(
 						{
 							type: 'image',
+							 delegate: 'a',
 							closeOnContentClick: true,
 							closeBtnInside: false,
 							removalDelay: 300,
