@@ -2354,6 +2354,7 @@ sub {
 img {
   border: 0;
   width: 100%;
+  height: auto;
 }
 
 /**
@@ -3330,13 +3331,19 @@ nav ul a span.badge {
 }
 
 .no-select, input[type=range], input[type=range] + .thumb {
-  -webkit-touch-callout: none;
+  /*-webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none;
+  user-select: none;*/
+}
+::selection {
+    background: #ffb7b7; /* WebKit/Blink Browsers */
 }
 
+::-moz-selection {
+    background: #ffb7b7; /* Gecko Browsers */
+}
 .circle {
   border-radius: 50%;
 }
@@ -8296,17 +8303,23 @@ button.btn-floating {
   cursor: pointer;
   display: inline-block;
   overflow: hidden;
-  -webkit-user-select: none;
+  /*-webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none;
+  user-select: none;*/
   -webkit-tap-highlight-color: transparent;
   vertical-align: middle;
   z-index: 1;
   will-change: opacity, transform;
   transition: all .3s ease-out;
 }
+::selection {
+    background: #ffb7b7; /* WebKit/Blink Browsers */
+}
 
+::-moz-selection {
+    background: #ffb7b7; /* Gecko Browsers */
+}
 .waves-effect .waves-ripple {
   position: absolute;
   border-radius: 50%;
@@ -9070,12 +9083,18 @@ textarea.materialize-textarea {
   font-size: 1rem;
   transition: .28s ease;
   /* webkit (konqueror) browsers */
-  -webkit-user-select: none;
+  /*-webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
+      -ms-user-select: none;*/
           user-select: none;
 }
+::selection {
+    background: #ffb7b7; /* WebKit/Blink Browsers */
+}
 
+::-moz-selection {
+    background: #ffb7b7; /* Gecko Browsers */
+}
 [type="radio"] + label:before,
 [type="radio"] + label:after {
   content: '';
@@ -9196,16 +9215,22 @@ form p:last-child {
   height: 25px;
   line-height: 25px;
   font-size: 1rem;
-  -webkit-user-select: none;
-  /* webkit (safari, chrome) browsers */
+  /*-webkit-user-select: none;
+   webkit (safari, chrome) browsers 
   -moz-user-select: none;
-  /* mozilla browsers */
+   mozilla browsers 
   -khtml-user-select: none;
-  /* webkit (konqueror) browsers */
+   webkit (konqueror) browsers 
   -ms-user-select: none;
-  /* IE10+ */
+   IE10+*/ 
+}
+::selection {
+    background: #ffb7b7; /* WebKit/Blink Browsers */
 }
 
+::-moz-selection {
+    background: #ffb7b7; /* Gecko Browsers */
+}
 [type="checkbox"] + label:before {
   content: '';
   position: absolute;
@@ -9353,12 +9378,18 @@ form p:last-child {
 ***************/
 .switch,
 .switch * {
-  -webkit-user-select: none;
+  /*-webkit-user-select: none;
   -moz-user-select: none;
   -khtml-user-select: none;
-  -ms-user-select: none;
+  -ms-user-select: none;*/
+}
+::selection {
+    background: #ffb7b7; /* WebKit/Blink Browsers */
 }
 
+::-moz-selection {
+    background: #ffb7b7; /* Gecko Browsers */
+}
 .switch label {
   cursor: pointer;
 }
@@ -9486,13 +9517,13 @@ select:disabled {
 .select-wrapper input.select-dropdown:disabled {
   color: rgba(0, 0, 0, 0.3);
   cursor: default;
-  -webkit-user-select: none;
-  /* webkit (safari, chrome) browsers */
+  /*-webkit-user-select: none;
+   webkit (safari, chrome) browsers 
   -moz-user-select: none;
-  /* mozilla browsers */
+   mozilla browsers 
   -ms-user-select: none;
-  /* IE10+ */
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+   IE10+ 
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);*/
 }
 
 .select-wrapper i {
@@ -10526,12 +10557,18 @@ select {
   color: #000000;
   position: absolute;
   z-index: 10000;
-  -webkit-user-select: none;
+  /*-webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none;
+  user-select: none;*/
+}
+::selection {
+    background: #ffb7b7; /* WebKit/Blink Browsers */
 }
 
+::-moz-selection {
+    background: #ffb7b7; /* Gecko Browsers */
+}
 /**
  * The picker input element.
  */

@@ -241,16 +241,23 @@ table.adminContent {
     -ms-touch-action: manipulation;
     touch-action: manipulation;
     cursor: pointer;
-    -webkit-user-select: none;
+    /*-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none;
+    user-select: none;*/
     background-image: none;
     border: 1px solid transparent;
     border-radius: 4px;
     background-color: #f4f4f4;
     color: #444;
     border-color: #ddd;
+}
+::selection {
+    background: #ffb7b7; /* WebKit/Blink Browsers */
+}
+
+::-moz-selection {
+    background: #ffb7b7; /* Gecko Browsers */
 }
 .k-multiselect .k-button {
     white-space: normal;
@@ -1017,10 +1024,10 @@ table td .form-group {
     -ms-touch-action: manipulation;
     touch-action: manipulation;
     cursor: pointer;
-    -webkit-user-select: none;
+    /*-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none;
+    user-select: none;*/
     background-image: none;
     border: 1px solid transparent;
     border-radius: 4px;
@@ -1028,6 +1035,13 @@ table td .form-group {
     border-color: #008d4c;
     float: left;
     margin-right: 5px;
+}
+::selection {
+    background: #ffb7b7; /* WebKit/Blink Browsers */
+}
+
+::-moz-selection {
+    background: #ffb7b7; /* Gecko Browsers */
 }
 .qq-upload-list {
     float: left;
@@ -1115,9 +1129,16 @@ span.grid-report-item.red {
 .onoffswitch {
     position: relative;
     width: 130px;
-    -webkit-user-select:none;
+    /*-webkit-user-select:none;
     -moz-user-select:none;
-    -ms-user-select: none;
+    -ms-user-select: none;*/
+}
+::selection {
+    background: #ffb7b7; /* WebKit/Blink Browsers */
+}
+
+::-moz-selection {
+    background: #ffb7b7; /* Gecko Browsers */
 }
 .onoffswitch-checkbox {
     display: none;

@@ -9,8 +9,9 @@ namespace Nop.Web.Models.Catalog
     public partial class ProductOverviewModel : BaseNopEntityModel
     {
 		private string name;
+        private ProductPriceModel productPriceModel;
 
-		public ProductOverviewModel()
+        public ProductOverviewModel()
         {
             ProductPrice = new ProductPriceModel();
             DefaultPictureModel = new PictureModel();
@@ -45,7 +46,22 @@ namespace Nop.Web.Models.Catalog
         public bool MarkAsNew { get; set; }
 
         //price
-        public ProductPriceModel ProductPrice { get; set; }
+        public ProductPriceModel ProductPrice
+        {
+            get
+            {
+                if (Quantity.Equals(0))
+                {
+                    this.productPriceModel.Price = "0";
+                    this.productPriceModel.OldPrice = "";
+                }
+                return this.productPriceModel;
+            }
+            set
+            {
+                this.productPriceModel = value;
+            }
+        }
         //picture
         public PictureModel DefaultPictureModel { get; set; }
         //specification attributes

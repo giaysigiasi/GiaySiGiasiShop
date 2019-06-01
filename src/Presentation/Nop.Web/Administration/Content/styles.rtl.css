@@ -248,10 +248,10 @@ table.adminContent {
     -ms-touch-action: manipulation;
     touch-action: manipulation;
     cursor: pointer;
-    -webkit-user-select: none;
+    /*-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none;
+    user-select: none;*/
     background-image: none;
     border: 1px solid transparent;
     border-radius: 4px;
@@ -1027,10 +1027,10 @@ table td .form-group {
     -ms-touch-action: manipulation;
     touch-action: manipulation;
     cursor: pointer;
-    -webkit-user-select: none;
+    /*-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none;
+    user-select: none;*/
     background-image: none;
     border: 1px solid transparent;
     border-radius: 4px;
@@ -1038,6 +1038,13 @@ table td .form-group {
     border-color: #008d4c;
     float: right;
     margin-left: 5px;
+}
+::selection {
+    background: #ffb7b7; /* WebKit/Blink Browsers */
+}
+
+::-moz-selection {
+    background: #ffb7b7; /* Gecko Browsers */
 }
 .qq-upload-list {
     float: right;
@@ -1125,9 +1132,16 @@ span.grid-report-item.red {
 .onoffswitch {
     position: relative; 
     width: 130px;
-    -webkit-user-select:none; 
+    /*-webkit-user-select:none; 
     -moz-user-select:none; 
-    -ms-user-select: none;
+    -ms-user-select: none;*/
+}
+::selection {
+    background: #ffb7b7; /* WebKit/Blink Browsers */
+}
+
+::-moz-selection {
+    background: #ffb7b7; /* Gecko Browsers */
 }
 .onoffswitch-checkbox {
     display: none;
